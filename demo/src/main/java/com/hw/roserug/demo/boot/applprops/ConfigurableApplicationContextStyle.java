@@ -10,6 +10,7 @@ public class ConfigurableApplicationContextStyle {
 	 * 2.获取ConfigEnvironment对象;
 	 * 3.通过getProperty方法获取参数值;
 	 * @param context
+	 * 
 	 */
 	public static void infoProps(ConfigurableApplicationContext context) {
 		System.out.println(context.getEnvironment().getProperty("people.name"));

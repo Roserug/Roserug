@@ -14,17 +14,19 @@ import org.springframework.stereotype.Component;
  * 流程:Spring容器会检测容器中的所有Bean,如果发现某个Bean实现了ApplicationContextAware接口,Spring容器会在创建该
  * Bean之后,自动调用该Bean的setApplicationContext方法,调用该方法时,会将容器本身作为参数传给该方法;
  * 
- *  * @author Roserug
+ * 注:可以不使用注解的方式,但是要主动调用setApplicationContext方法设置Spring容器;
+ * 
+ * @author Roserug
+ *  
  */
 @Component
 public class SpringUtil implements ApplicationContextAware {
 	private static ApplicationContext applicationContext = null;
-	/* SpringBoot
+	/* SpringBoot默认扫描;
 	 * 
 	 * 非@import显式注入,@Component是必须的,且该类必须与main同包或子包; 
 	 * 若非同包或子包，则需手动import注入;
 	 */
-
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		if (SpringUtil.applicationContext == null) {

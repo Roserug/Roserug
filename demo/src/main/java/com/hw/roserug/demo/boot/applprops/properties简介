@@ -1,0 +1,46 @@
+1.配置文件的格式
+	SpringBoot可以识别两种格式的配置文件,分别是yml文件与properties文件,我们可以将application.properties文件换成
+application.yml,这两个文件都可以被SpringBoot自动识别并加载,但是如果是自定义的配置文件,就最好还是使用properties格式的文件,
+因为SpringBoot中暂时还并未提供手动加载yml格式文件的功能(这里指注解方式);
+	application.properties配置文件欲被SpringBoot自动加载,需要放置到指定的位置:src/main/resource目录下,一般自定义的配置
+文件也位于此目录之下;
+
+2.配置文件的加载
+	加载的意思就是将文件读取到Spring容器之中,更确切的说就是将各个配置项装载到Spring上下文容器之中供随时取用;
+	application.properties配置文件是在SpringBoot项目启动的时候被自动加载的,其内部的相关设置会自动覆盖SpringBoot默认的对应
+设置项,所以的配置项均会保存到Spring容器之中;
+	公共配置文件:application.properties或application.yml
+	公共配置文件优先级大于自定义配置文件
+3.自定义配置文件:xxx.properties
+	自定义的xxx.properties配置文件是不会被SpringBoot自动加载的,需要手动去进行加载,这里的手动加载一般指的是注解的方式加载,这里就
+需要使用加载自定义属性文件的注解:@PropertySource("classpath:xxx.properties"),这个注解专门用来加载指定位置的properties
+文件,Spring暂未提供加载指定位置yml文件的注解;其实无论对于哪里的properties文件,当我们需要使用其中配置内容的时候,就在当前类的顶部加注
+该注解,将该配置文件加载到内存,这些配置文件一次加载即可多次使用;
+
+4.配置项的使用
+　　配置项的使用其实很简单，只要是加载到Spring容器中的配置项都可以直接使用@Value("${key}")的方式来引用,一般将其配置在字段顶部,表示将
+配置项的值赋值给该字段。
+	当然更多的情况是将这些配置项与一个JavaBean绑定起来使用,这样绑定一次,我们就可以随时使用;这里涉及到两种情况:一种是将
+application.properties中的配置与JavaBean绑定,一种是将自定义配置文件中的配置与Javabean绑定;
+	第一种：applicaiton.properties属性绑定JavaBean
+		这种情况相对简单(因为application.properties文件会被自动加载,也就是说配置项会被自动加载到内存,到Spring容器之中,省去了
+手动加载的配置),然后我们在要与属性绑定的JavaBean的类定义顶部加@Component注解和@ConfigurationProperties(prefix="key")
+注解,前者的目的是为了这个JavaBean可以被SpringBoot项目启动时候被扫描到并加载到Spring容器之中,重点是后者,这个注解一般不是单独使用的,
+它一般与后面要说的@EnableConfigurationProperties(JavaBean.class)配合使用,但是二者并非使用在同一位置,
+@ConfigurationProperties(prefix="key")注解加注在JavaBean类定义之上,按字面可以理解为属性配置注解,更直接点的说法就是属性绑
+定注解,官方解释是:如果想要绑定或者验证一些来源自.properties文件中的额外属性时,你可以在一个标注的@Configuration的类的注
+有@Bean注解的方法或者一个类之上加注这个注解;我们完全可以将其理解为绑定专用注解;它的作用就是将指定的前缀的配置项的值与JavaBean的字段绑定,
+这里要注意,为了绑定的成功,一般将字段的名称与配置项键的最后一个键名相同,这样整个键在去掉前缀的情况下就和字段名称一致,以此来进行绑定;
+
+	第二种:自定义配置的属性绑定JavaBean
+		这种情况与之前的基本相同,只是不能自动加载,需要手动加载,在JavaBean之上加上之前介绍的@PropertySource注解进行配置文件加载;
+还有一点就是将@Component改为@Configuration,为什么这么做呢？
+	@Configuration注解的底层就是@Component,但是二者意义不同,@Configuration注解侧重配置之意,@Component侧重组件之意,
+当然配置也是项目组件之一,在这里我们要将配置文件属性与JavaBean绑定,当然更侧重配置之意;
+	将配置与JavaBean绑定之后,我们就可以通过JavaBean来获取配置的内容,而且JavaBean已经被@Component注解或者@Configuration
+注解加载到Spring容器,我们可以使用自动注入的方式在其他类中随便使用。
+
+　　注意：当我们在某个类中要使用这个JavaBean时,需要在这个类中指定这个JavaBean的类型,这个指定也要使用注解来制定,正是之前介绍的
+@EnableConfigurationProperties注解,这个注解与@ConfigurationProperties注解配套使用;官方给出的解释:这个注解是
+对@ConfigurationProperties的有效支持;标注有@ConfigurationProperties注解的Beans可以被使用标准的方式注册(使用@Bean注解)
+,或者,为了方便起见,直接用使用@EnableConfigurationProperties指定注册;意思是这个注解提供了一种方便直接的注册Bean的方式;
