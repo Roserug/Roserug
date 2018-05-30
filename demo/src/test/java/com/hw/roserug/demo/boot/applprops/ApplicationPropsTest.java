@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.hw.roserug.demo.boot.applicationprops.AutoBeanInjectStyle;
+import com.hw.roserug.demo.boot.applicationprops.ValueInjectStyle;
+
 /**
  * SpringBoot使用Junit测试若想通过@Autowired和@Resource注入Bean,则需要在测试类类名上加
  * 入@RunWith(SpringJUnit4ClassRunner.class)及@SpringBootTest注解;

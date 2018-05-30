@@ -1,4 +1,4 @@
-package com.hw.roserug.demo.boot.applprops;
+package com.hw.roserug.demo.boot.applicationprops;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

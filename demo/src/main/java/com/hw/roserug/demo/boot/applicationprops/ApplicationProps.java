@@ -1,4 +1,4 @@
-package com.hw.roserug.demo.boot.applprops;
+package com.hw.roserug.demo.boot.applicationprops;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
