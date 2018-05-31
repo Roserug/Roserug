@@ -4,9 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * 通过@Value注解获取配置文件的值;
- * 
- * 注:可以使用@PropertySource("classpath:xxx.properties")指定指定的参数文件;
+ * 通过@Value注解获取配置文件的值,即@Value("${people.name}");
+ * 若直接用@Value("people.name"),则只是把字符串赋值给相应的变量;
  * 
  * @author Administrator
  *
