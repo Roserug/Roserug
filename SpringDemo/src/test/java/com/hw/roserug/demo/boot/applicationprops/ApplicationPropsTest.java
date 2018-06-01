@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.hw.roserug.demo.boot.applicationprops.AutoBeanInjectStyle;
 import com.hw.roserug.demo.boot.applicationprops.ValueInjectStyle;
 import com.hw.roserug.demo.boot.applicationprops.bean.SpecifyUser;
+import com.hw.roserug.demo.boot.applicationprops.bean.UseSpecifyUserBean;
 import com.hw.roserug.demo.boot.applicationprops.bean.User;
 
 /**
@@ -24,14 +25,31 @@ import com.hw.roserug.demo.boot.applicationprops.bean.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 public class ApplicationPropsTest {
+	/**
+	 * 自动注解:注入到Environment对象中;
+	 */
 	@Autowired
-	AutoBeanInjectStyle autoBeanInjectStyle;//使用Environment对象注入
+	AutoBeanInjectStyle autoBeanInjectStyle;
+	/**
+	 * 通过value注解及表达式进行取值;
+	 */
 	@Autowired
-	ValueInjectStyle valueInjectStyle;//使用value注解
+	ValueInjectStyle valueInjectStyle;
+	/**
+	 * 注解公共配置文件到User实体Bean中;
+	 */
 	@Autowired
 	User user;
+	/**
+	 * 注解自定义配置文件到实体Bean中;
+	 */
 	@Autowired
 	SpecifyUser specifyUser;
+	/**
+	 * 使用@EnableConfigurationProperties注解的Bean注入;
+	 */
+	@Autowired
+	UseSpecifyUserBean useSpecifyUserBean;
 	
 	@Test
 	public void testAutoBeanInjectStyle() {
@@ -52,5 +70,10 @@ public class ApplicationPropsTest {
 	@Test
 	public void testBeanSpecifyUser(){
 		System.err.println(specifyUser.toJson());
+	}
+	
+	@Test
+	public void testUseSpecifyUserBean(){
+		System.err.println(useSpecifyUserBean.toJson());
 	}
 }

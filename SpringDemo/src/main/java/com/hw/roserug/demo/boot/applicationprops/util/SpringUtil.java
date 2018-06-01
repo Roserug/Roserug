@@ -1,4 +1,4 @@
-package com.hw.roserug.demo.boot.applprops.util;
+package com.hw.roserug.demo.boot.applicationprops.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -55,4 +55,3 @@ public class SpringUtil implements ApplicationContextAware {
 		return getApplicationContext().getBean(name, clazz);
 	}
 }
-

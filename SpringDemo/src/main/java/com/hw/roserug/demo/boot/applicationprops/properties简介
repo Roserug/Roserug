@@ -1,0 +1,18 @@
+1.配置文件的格式
+	SpringBoot可以识别两种格式的配置文件,分别是yml文件与properties文件,我们可以将application.properties文件换成
+application.yml,这两个文件都可以被SpringBoot自动识别并加载,但是如果是自定义的配置文件,就最好还是使用properties格式的文件,
+因为SpringBoot中暂时还并未提供手动加载yml格式文件的功能(这里指注解方式);
+	application.properties配置文件欲被SpringBoot自动加载,需要放置到指定的位置:src/main/resource目录下,一般自定义的配置
+文件也位于此目录之下;
+
+2.配置文件的加载
+	加载的意思就是将文件读取到Spring容器之中,更确切的说就是将各个配置项装载到Spring上下文容器之中供随时取用;
+	application.properties配置文件是在SpringBoot项目启动的时候被自动加载的,其内部的相关设置会自动覆盖SpringBoot默认的对应
+设置项,所以的配置项均会保存到Spring容器之中;
+	公共配置文件:application.properties或application.yml
+	公共配置文件优先级大于自定义配置文件
+3.自定义配置文件:xxx.properties
+	自定义的xxx.properties配置文件是不会被SpringBoot自动加载的,需要手动去进行加载,这里的手动加载一般指的是注解的方式加载,这里就
+需要使用加载自定义属性文件的注解:@PropertySource("classpath:xxx.properties"),这个注解专门用来加载指定位置的properties
+文件,Spring暂未提供加载指定位置yml文件的注解;其实无论对于哪里的properties文件,当我们需要使用其中配置内容的时候,就在当前类的顶部加注
+该注解,将该配置文件加载到内存,这些配置文件一次加载即可多次使用;

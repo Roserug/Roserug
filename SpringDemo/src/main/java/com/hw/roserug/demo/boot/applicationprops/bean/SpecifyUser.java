@@ -10,16 +10,18 @@ import org.springframework.context.annotation.PropertySource;
  * 是@Component,但是二者意义不同,@Configuration注解侧重配置之意,@Component侧重组件之意,当然配置也
  * 是项目组件之一,在这里我们要将配置文件属性与JavaBean绑定,当然更侧重配置之意;
  * 3.@PropertySource("classpath:xxx.properties")-指定自定义参数文件的注解;
- * 4.@ConfigurationProperties(prefix="key")-实现了配置信息的注入,然后可使用@EnableConfigur
- * ationProperties(JavaBean.class)注解才使得配置bean被创建出来;
+ * 4.@ConfigurationProperties(prefix="key")-把properties文件转化为bean,然后可与@EnableConfigur
+ * ationProperties(JavaBean.class)注解配合使用,该注解可使@ConfigurationProperties生效,并从IOC容器中
+ * 获取bean;
  * 5.若去掉@ConfigurationProperties注解,则值不会注入;
+ * 6.@Data 这个是一个lombok注解,用于生成getter&setter方法;
  * 
  * @author Roserug
  *
  */
 @Configuration
 @PropertySource("classpath:user.properties")
-@ConfigurationProperties(prefix="user1")
+@ConfigurationProperties(prefix="user")
 public class SpecifyUser {
 	private String name;
 	private int age;
