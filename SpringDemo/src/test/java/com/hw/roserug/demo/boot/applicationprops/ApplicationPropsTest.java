@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.hw.roserug.demo.boot.applicationprops.AutoBeanInjectStyle;
 import com.hw.roserug.demo.boot.applicationprops.ValueInjectStyle;
+import com.hw.roserug.demo.boot.applicationprops.bean.DefineMapProperties;
 import com.hw.roserug.demo.boot.applicationprops.bean.SpecifyUser;
 import com.hw.roserug.demo.boot.applicationprops.bean.UseSpecifyUserBean;
 import com.hw.roserug.demo.boot.applicationprops.bean.User;
@@ -51,29 +52,47 @@ public class ApplicationPropsTest {
 	@Autowired
 	UseSpecifyUserBean useSpecifyUserBean;
 	
+	/**
+	 * 测试:自动注解:注入到Environment对象中;
+	 */
 	@Test
 	public void testAutoBeanInjectStyle() {
 		Assert.assertEquals("one", autoBeanInjectStyle.info());
 		System.err.println(autoBeanInjectStyle.info());
 	}
-	
+	/**
+	 * 测试:通过value注解及表达式进行取值;
+	 */
 	@Test
 	public void testValueInjectStyle() {
 		System.err.println(valueInjectStyle.toJson());
 	}
-	
+	/**
+	 * 测试:注解公共配置文件到User实体Bean中;
+	 */
 	@Test
 	public void testBeanUser(){
 		System.err.println(user.toJson());
 	}
-	
+	/**
+	 * 测试:注解自定义配置文件到实体Bean中;
+	 */
 	@Test
 	public void testBeanSpecifyUser(){
 		System.err.println(specifyUser.toJson());
 	}
-	
+	/**
+	 * 测试:使用@EnableConfigurationProperties注解的Bean注入;
+	 */
 	@Test
 	public void testUseSpecifyUserBean(){
 		System.err.println(useSpecifyUserBean.toJson());
+	}
+	/**
+	 * 测试:参数文件转换为Map对象并获取值;
+	 */
+	@Test
+	public void testDefineMapProperties(){
+		System.err.println(DefineMapProperties.getValue("name"));
 	}
 }

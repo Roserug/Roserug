@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 /**
  * 详情请见SpecifyUser类;
  * 
+ * EnableConfigurationProperties注解,激活自定义配置配置类,但在spring boot1.5之后可以通过@Componemt注解
+ * 直接注入Bean.
+ * 
  * @author Roserug
  *
  */
