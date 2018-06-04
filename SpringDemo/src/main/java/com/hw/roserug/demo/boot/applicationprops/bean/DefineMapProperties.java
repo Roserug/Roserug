@@ -13,6 +13,9 @@ import org.springframework.context.annotation.PropertySource;
  * ConfigurationProperties注解,有一个locations属性已过时,在spring boot1.5版本后
  * 被@PropertySource注解替代;
  * 
+ * 若想映射为List<String>,则写法类似,定义变量private static List<String> map = 
+ * new ArrayList<String>()及setter和getter方法;
+ * 
  * @author Roserug
  *
  */
